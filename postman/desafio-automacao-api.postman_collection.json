@@ -1,0 +1,2391 @@
+{
+	"info": {
+		"_postman_id": "7ef18f38-0e7c-460f-8840-544c0a412f6f",
+		"name": "Mantis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11215227"
+	},
+	"item": [
+		{
+			"name": "Configs",
+			"item": [
+				{
+					"name": "Sucesso",
+					"item": [
+						{
+							"name": "Obter Configuração Do Sistema - Opção Pública",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.variables.set('option', 'default_bug_priority');"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Get Config' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var desc = \"OK\"\r",
+											"tests[\"Status description from 'Get Config' is OK\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Get Config' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Get Config' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Config array contains 1 item\", function(){\r",
+											"    pm.expect(jsonData.configs.length).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Value 30\", function(){\r",
+											"    _.each(jsonData.configs, (item) => {\r",
+											"        pm.expect(item.value).to.eql(30);\r",
+											"    })\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Option default_bug_priority\", function(){\r",
+											"    _.each(jsonData.configs, (item) => {\r",
+											"        pm.expect(item.option).to.include('default_bug_priority');\r",
+											"    })\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Get Config'\", () => {\r",
+											"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+											"\tpm.expect(jsonData.configs).to.be.a(\"array\");\r",
+											"    pm.expect(jsonData.configs[0].option).to.be.an(\"string\");\r",
+											"\tpm.expect(jsonData.configs[0].value).to.be.a(\"number\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/config?option={{option}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"config"
+									],
+									"query": [
+										{
+											"key": "option",
+											"value": "{{option}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obter Configuração Do Sistema - Opção Inexistente",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.variables.set('option', 'default_priority');"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Get Config' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var desc = \"OK\"\r",
+											"tests[\"Status description from 'Get Config' is OK\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Get Configs' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Get Configs' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Configs array is empty\", function(){\r",
+											"    pm.expect(jsonData.configs.length).to.eql(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Get Configs'\", () => {\r",
+											"\tpm.expect(jsonData.configs).to.be.a(\"array\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Configs array is empty\", function(){\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.configs.length).to.eql(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/config?option={{option}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"config"
+									],
+									"query": [
+										{
+											"key": "option",
+											"value": "{{option}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Sucesso",
+					"item": [
+						{
+							"name": "Obter Projetos",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Get Projects' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var desc = \"OK\"\r",
+											"tests[\"Status description from 'Get Projects' is OK\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Get Projects' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Get Projects' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"const schemaProjetos = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"    \"projects\": {\r",
+											"      \"type\": \"array\",\r",
+											"      \"items\": [\r",
+											"        {\r",
+											"          \"type\": \"object\",\r",
+											"          \"properties\": {\r",
+											"            \"id\": {\r",
+											"              \"type\": \"integer\"\r",
+											"            },\r",
+											"            \"name\": {\r",
+											"              \"type\": \"string\"\r",
+											"            },\r",
+											"            \"status\": {\r",
+											"              \"type\": \"object\",\r",
+											"              \"properties\": {\r",
+											"                \"id\": {\r",
+											"                  \"type\": \"integer\"\r",
+											"                },\r",
+											"                \"name\": {\r",
+											"                  \"type\": \"string\"\r",
+											"                },\r",
+											"                \"label\": {\r",
+											"                  \"type\": \"string\"\r",
+											"                }\r",
+											"              },\r",
+											"              \"required\": [\r",
+											"                \"id\",\r",
+											"                \"name\",\r",
+											"                \"label\"\r",
+											"              ]\r",
+											"            },\r",
+											"            \"description\": {\r",
+											"              \"type\": \"string\"\r",
+											"            },\r",
+											"            \"enabled\": {\r",
+											"              \"type\": \"boolean\"\r",
+											"            },\r",
+											"            \"view_state\": {\r",
+											"              \"type\": \"object\",\r",
+											"              \"properties\": {\r",
+											"                \"id\": {\r",
+											"                  \"type\": \"integer\"\r",
+											"                },\r",
+											"                \"name\": {\r",
+											"                  \"type\": \"string\"\r",
+											"                },\r",
+											"                \"label\": {\r",
+											"                  \"type\": \"string\"\r",
+											"                }\r",
+											"              },\r",
+											"              \"required\": [\r",
+											"                \"id\",\r",
+											"                \"name\",\r",
+											"                \"label\"\r",
+											"              ]\r",
+											"            },\r",
+											"            \"access_level\": {\r",
+											"              \"type\": \"object\",\r",
+											"              \"properties\": {\r",
+											"                \"id\": {\r",
+											"                  \"type\": \"integer\"\r",
+											"                },\r",
+											"                \"name\": {\r",
+											"                  \"type\": \"string\"\r",
+											"                },\r",
+											"                \"label\": {\r",
+											"                  \"type\": \"string\"\r",
+											"                }\r",
+											"              },\r",
+											"              \"required\": [\r",
+											"                \"id\",\r",
+											"                \"name\",\r",
+											"                \"label\"\r",
+											"              ]\r",
+											"            },\r",
+											"            \"custom_fields\": {\r",
+											"              \"type\": \"array\",\r",
+											"              \"items\": {}\r",
+											"            },\r",
+											"            \"versions\": {\r",
+											"              \"type\": \"array\",\r",
+											"              \"items\": {}\r",
+											"            },\r",
+											"            \"categories\": {\r",
+											"              \"type\": \"array\",\r",
+											"              \"items\": [\r",
+											"                {\r",
+											"                  \"type\": \"object\",\r",
+											"                  \"properties\": {\r",
+											"                    \"id\": {\r",
+											"                      \"type\": \"integer\"\r",
+											"                    },\r",
+											"                    \"name\": {\r",
+											"                      \"type\": \"string\"\r",
+											"                    },\r",
+											"                    \"project\": {\r",
+											"                      \"type\": \"object\",\r",
+											"                      \"properties\": {\r",
+											"                        \"id\": {\r",
+											"                          \"type\": \"integer\"\r",
+											"                        },\r",
+											"                        \"name\": {\r",
+											"                          \"type\": \"null\"\r",
+											"                        }\r",
+											"                      },\r",
+											"                      \"required\": [\r",
+											"                        \"id\",\r",
+											"                        \"name\"\r",
+											"                      ]\r",
+											"                    }\r",
+											"                  },\r",
+											"                  \"required\": [\r",
+											"                    \"id\",\r",
+											"                    \"name\",\r",
+											"                    \"project\"\r",
+											"                  ]\r",
+											"                }\r",
+											"              ]\r",
+											"            }\r",
+											"          },\r",
+											"          \"required\": [\r",
+											"            \"id\",\r",
+											"            \"name\",\r",
+											"            \"status\",\r",
+											"            \"description\",\r",
+											"            \"enabled\",\r",
+											"            \"view_state\",\r",
+											"            \"access_level\",\r",
+											"            \"custom_fields\",\r",
+											"            \"versions\",\r",
+											"            \"categories\"\r",
+											"          ]\r",
+											"        }\r",
+											"      ]\r",
+											"    }\r",
+											"  },\r",
+											"  \"required\": [\r",
+											"    \"projects\"\r",
+											"  ]\r",
+											"};\r",
+											"\r",
+											"pm.test('Projects schema is valid', function() {\r",
+											"  pm.response.to.have.jsonSchema(schemaProjetos);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/projects/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projects",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar projeto",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
+											"  \"method\": \"GET\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"    var data = response.json();\r",
+											"\r",
+											"\tfunction getMaxId(arr, prop) {\r",
+											"        var max;\r",
+											"        for (var i=0 ; i<arr.length ; i++) {\r",
+											"            if (max == null || parseInt(arr[i][prop]) > parseInt(max[prop]))\r",
+											"                max = arr[i];\r",
+											"        }\r",
+											"        return max;\r",
+											"    }\r",
+											"\r",
+											"    pm.collectionVariables.set('ultimoIdProjeto', getMaxId(data.projects, \"id\").id);\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											"\r",
+											"/*******************************************************************************/\r",
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var idProjeto = jsonData.project.id; \r",
+											"\r",
+											"pm.collectionVariables.set('projectId', idProjeto);\r",
+											"\r",
+											"pm.test(\"Status code from 'Create Project' is 201\", function(){\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Project created with id \"+idProjeto\r",
+											"tests[\"Status description from 'Create Project' is Project created with id \"+idProjeto] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create Projects' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Create Project' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"const schemaProjeto = {\r",
+											"  \"type\": \"object\",\r",
+											"  \"properties\": {\r",
+											"    \"project\": {\r",
+											"      \"type\": \"object\",\r",
+											"      \"properties\": {\r",
+											"        \"id\": {\r",
+											"          \"type\": \"integer\"\r",
+											"        },\r",
+											"        \"name\": {\r",
+											"          \"type\": \"string\"\r",
+											"        },\r",
+											"        \"status\": {\r",
+											"          \"type\": \"object\",\r",
+											"          \"properties\": {\r",
+											"            \"id\": {\r",
+											"              \"type\": \"integer\"\r",
+											"            },\r",
+											"            \"name\": {\r",
+											"              \"type\": \"string\"\r",
+											"            },\r",
+											"            \"label\": {\r",
+											"              \"type\": \"string\"\r",
+											"            }\r",
+											"          },\r",
+											"          \"required\": [\r",
+											"            \"id\",\r",
+											"            \"name\",\r",
+											"            \"label\"\r",
+											"          ]\r",
+											"        },\r",
+											"        \"description\": {\r",
+											"          \"type\": \"string\"\r",
+											"        },\r",
+											"        \"enabled\": {\r",
+											"          \"type\": \"boolean\"\r",
+											"        },\r",
+											"        \"view_state\": {\r",
+											"          \"type\": \"object\",\r",
+											"          \"properties\": {\r",
+											"            \"id\": {\r",
+											"              \"type\": \"integer\"\r",
+											"            },\r",
+											"            \"name\": {\r",
+											"              \"type\": \"string\"\r",
+											"            },\r",
+											"            \"label\": {\r",
+											"              \"type\": \"string\"\r",
+											"            }\r",
+											"          },\r",
+											"          \"required\": [\r",
+											"            \"id\",\r",
+											"            \"name\",\r",
+											"            \"label\"\r",
+											"          ]\r",
+											"        },\r",
+											"        \"access_level\": {\r",
+											"          \"type\": \"object\",\r",
+											"          \"properties\": {\r",
+											"            \"id\": {\r",
+											"              \"type\": \"integer\"\r",
+											"            },\r",
+											"            \"name\": {\r",
+											"              \"type\": \"string\"\r",
+											"            },\r",
+											"            \"label\": {\r",
+											"              \"type\": \"string\"\r",
+											"            }\r",
+											"          },\r",
+											"          \"required\": [\r",
+											"            \"id\",\r",
+											"            \"name\",\r",
+											"            \"label\"\r",
+											"          ]\r",
+											"        },\r",
+											"        \"custom_fields\": {\r",
+											"          \"type\": \"array\",\r",
+											"          \"items\": {}\r",
+											"        },\r",
+											"        \"versions\": {\r",
+											"          \"type\": \"array\",\r",
+											"          \"items\": {}\r",
+											"        },\r",
+											"        \"categories\": {\r",
+											"          \"type\": \"array\",\r",
+											"          \"items\": [\r",
+											"            {\r",
+											"              \"type\": \"object\",\r",
+											"              \"properties\": {\r",
+											"                \"id\": {\r",
+											"                  \"type\": \"integer\"\r",
+											"                },\r",
+											"                \"name\": {\r",
+											"                  \"type\": \"string\"\r",
+											"                },\r",
+											"                \"project\": {\r",
+											"                  \"type\": \"object\",\r",
+											"                  \"properties\": {\r",
+											"                    \"id\": {\r",
+											"                      \"type\": \"integer\"\r",
+											"                    },\r",
+											"                    \"name\": {\r",
+											"                      \"type\": \"null\"\r",
+											"                    }\r",
+											"                  },\r",
+											"                  \"required\": [\r",
+											"                    \"id\",\r",
+											"                    \"name\"\r",
+											"                  ]\r",
+											"                }\r",
+											"              },\r",
+											"              \"required\": [\r",
+											"                \"id\",\r",
+											"                \"name\",\r",
+											"                \"project\"\r",
+											"              ]\r",
+											"            }\r",
+											"          ]\r",
+											"        }\r",
+											"      },\r",
+											"      \"required\": [\r",
+											"        \"id\",\r",
+											"        \"name\",\r",
+											"        \"status\",\r",
+											"        \"description\",\r",
+											"        \"enabled\",\r",
+											"        \"view_state\",\r",
+											"        \"access_level\",\r",
+											"        \"custom_fields\",\r",
+											"        \"versions\",\r",
+											"        \"categories\"\r",
+											"      ]\r",
+											"    }\r",
+											"  },\r",
+											"  \"required\": [\r",
+											"    \"project\"\r",
+											"  ]\r",
+											"};\r",
+											"\r",
+											"pm.test('Schema is valid', function() {\r",
+											"  pm.response.to.have.jsonSchema(schemaProjeto);\r",
+											"});\r",
+											"\r",
+											"pm.test('Project Name confirmation', function()\r",
+											"{\r",
+											"    pm.expect(jsonData.project.name).to.eql(pm.collectionVariables.get(\"projectName\"));\r",
+											"});\r",
+											"\r",
+											"pm.collectionVariables.set('uip', parseInt(pm.collectionVariables.get('ultimoIdProjeto') + 1));\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\": \"{{projectName}}\",\r\n   \"status\": {\r\n      \"id\": 10,\r\n      \"name\": \"development\",\r\n      \"label\": \"development\"\r\n    },\r\n    \"description\": \"{{projectDescription}}\",\r\n    \"enabled\": true,\r\n    \"file_path\": \"/tmp/\",\r\n    \"view_state\": {\r\n      \"id\": 10,\r\n      \"name\": \"public\",\r\n      \"label\": \"public\"\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/projects/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projects",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar projeto",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"\r",
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\r",
+											"        \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"        \"status\": {\r",
+											"            \"id\": 10,\r",
+											"            \"name\": \"development\",\r",
+											"            \"label\": \"development\"\r",
+											"            },\r",
+											"            \"description\": pm.collectionVariables.get(\"projectDescription\"),\r",
+											"            \"enabled\": true,\r",
+											"            \"file_path\": \"/tmp/\",\r",
+											"            \"view_state\": {\r",
+											"            \"id\": 10,\r",
+											"            \"name\": \"public\",\r",
+											"            \"label\": \"public\"\r",
+											"            }\r",
+											"        })\r",
+											"    },\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"    var data = response.json();\r",
+											"\tpm.collectionVariables.set('projectId', data.project.id);\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Update Project' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var projectId = pm.collectionVariables.get('projectId');\r",
+											"var desc = \"Project with id \"+projectId+\" Update\"\r",
+											"tests[\"Status description from 'Update Project' is Project with id \"+projectId+\" deleted.\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Update Project' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Update Project' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"enabled\": false\r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/projects/{{projectId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projects",
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Excluir projeto",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"\r",
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\r",
+											"        \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"        \"status\": {\r",
+											"            \"id\": 10,\r",
+											"            \"name\": \"development\",\r",
+											"            \"label\": \"development\"\r",
+											"            },\r",
+											"            \"description\": pm.collectionVariables.get(\"projectDescription\"),\r",
+											"            \"enabled\": true,\r",
+											"            \"file_path\": \"/tmp/\",\r",
+											"            \"view_state\": {\r",
+											"            \"id\": 10,\r",
+											"            \"name\": \"public\",\r",
+											"            \"label\": \"public\"\r",
+											"            }\r",
+											"        })\r",
+											"    },\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"    var data = response.json();\r",
+											"\tpm.collectionVariables.set('projectId', data.project.id);\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Delete Project' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var projectId = pm.collectionVariables.get('projectId');\r",
+											"var desc = \"Project with id \"+projectId+\" deleted.\"\r",
+											"tests[\"Status description from 'Delete Project' is Project with id \"+projectId+\" deleted.\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Delete Project' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Delete Project' Response is empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.eql('');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/projects/{{projectId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projects",
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Exceção",
+					"item": [
+						{
+							"name": "Criar projeto - Nome vazio",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Create Project' is 500\", function(){\r",
+											"    pm.response.to.have.status(500);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Internal Server Error\"\r",
+											"tests[\"Status description from 'Create Project' is Internal Server Error\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create Projects' Response is not successful\", function () {\r",
+											"    pm.response.to.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Create Projects' Response is empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.eql('');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.collectionVariables.set('projectDescription', pm.variables.replaceIn('{{$$randomLoremParagraph}}'));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"name\": \"\",\r\n   \"status\": {\r\n      \"id\": 10,\r\n      \"name\": \"development\",\r\n      \"label\": \"development\"\r\n    },\r\n    \"description\": \"{{projectDescription}}\",\r\n    \"enabled\": true,\r\n    \"file_path\": \"/tmp/\",\r\n    \"view_state\": {\r\n      \"id\": 10,\r\n      \"name\": \"public\",\r\n      \"label\": \"public\"\r\n    }\r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/projects/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"projects",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Sucesso",
+					"item": [
+						{
+							"name": "Criar usuário - Dados Mínimos From CSV",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set('random', Math.floor(Math.random() * 100000));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var userId = jsonData.user.id; \r",
+											"\r",
+											"pm.collectionVariables.set('userId', userId);\r",
+											"\r",
+											"pm.test(\"Status code from 'Create User' is 201\", function(){\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"var desc = \"User created with id \"+userId\r",
+											"tests[\"Status description from 'Create User' is User created with id \"+userId] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create User' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Create User' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"tests[\"Email to contain @.\"] = pm.expect(jsonData.user.email).to.match(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/);\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Create User'\", () => {\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.user.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.user.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.real_name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.email).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.language).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.timezone).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.access_level).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.user.access_level.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.user.access_level.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.access_level.label).to.be.a(\"string\");  \r",
+											"    pm.expect(jsonData.user.projects).to.be.an(\"array\");\r",
+											"    for(let i=0; i<jsonData.user.projects.length; i++)\r",
+											"    {\r",
+											"        pm.expect(jsonData.user.projects[i].id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.user.projects[i].name).to.be.a(\"string\");\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"\r",
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/users/\"+userId,\r",
+											"  \"method\": \"DELETE\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username_csv}}{{random}}\",\r\n  \"password\": \"{{password_csv}}\",\r\n  \"real_name\": \"{{real_name_csv}}\",\r\n  \"email\": \"{{random}}{{email_csv}}\",\r\n  \"access_level\": { \"name\": \"{{access_level_name_csv}}\" },\r\n  \"enabled\": {{enabled_csv}},\r\n  \"protected\": {{protected_csv}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar usuário - Dados Mínimos",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+											"var lastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+											"\r",
+											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
+											"\r",
+											"pm.collectionVariables.set('username',removerAcentosECaracteresEspeciais(firstName+\".\"+lastName));\r",
+											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
+											"\r",
+											"\r",
+											"function removerAcentosECaracteresEspeciais (str){\r",
+											"        str = str.replace('/[áàãâä]/ui', 'a');\r",
+											"        str = str.replace('/[éèêë]/ui', 'e');\r",
+											"        str = str.replace('/[íìîï]/ui', 'i');\r",
+											"        str = str.replace('/[óòõôö]/ui', 'o');\r",
+											"        str = str.replace('/[úùûü]/ui', 'u');\r",
+											"        str = str.replace('/[ç]/ui', 'c');\r",
+											"        str = str.replace('/[^a-z0-9]/i', '_');\r",
+											"        str = str.replace('/_+\\'/', '_'); \r",
+											"        str = str.replace('/[^a-z0-9]/gi',''); \r",
+											"        str = str.replace(/'/g, ''); \r",
+											"        return str;\r",
+											"}\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var userId = jsonData.user.id; \r",
+											"\r",
+											"pm.collectionVariables.set('userId', userId);\r",
+											"\r",
+											"pm.test(\"Status code from 'Create User' is 201\", function(){\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"var desc = \"User created with id \"+userId\r",
+											"tests[\"Status description from 'Create User' is User created with id \"+userId] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create User' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Create User' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"tests[\"Email to contain @.\"] = pm.expect(jsonData.user.email).to.match(/^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$/);\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Create User'\", () => {\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.user.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.user.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.real_name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.email).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.language).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.timezone).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.access_level).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.user.access_level.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.user.access_level.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.user.access_level.label).to.be.a(\"string\");  \r",
+											"    pm.expect(jsonData.user.projects).to.be.an(\"array\");\r",
+											"    for(let i=0; i<jsonData.user.projects.length; i++)\r",
+											"    {\r",
+											"        pm.expect(jsonData.user.projects[i].id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.user.projects[i].name).to.be.a(\"string\");\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{userPassword}}\",\r\n  \"real_name\": \"{{userFullName}}\",\r\n  \"email\": \"{{username}}@gmail.com\",\r\n  \"access_level\": { \"name\": \"administrator\" },\r\n  \"enabled\": true,\r\n  \"protected\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Excluir usuário",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+											"var lastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+											"\r",
+											"pm.collectionVariables.set('username', firstName+\".\"+lastName);\r",
+											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
+											"\r",
+											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
+											"\r",
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/users/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"     mode: 'raw',\r",
+											"     raw: JSON.stringify({\r",
+											"\t\t  \"username\": pm.collectionVariables.get(\"username\"),\r",
+											"\t\t  \"password\": pm.collectionVariables.get(\"userPassword\"),\r",
+											"\t\t  \"real_name\": pm.collectionVariables.get(\"userFullName\"),\r",
+											"\t\t  \"email\": pm.collectionVariables.get(\"username\")+\"@gmail.com\",\r",
+											"\t\t  \"access_level\": { \"name\": \"administrator\" },\r",
+											"\t\t  \"enabled\": true,\r",
+											"\t\t  \"protected\": false\r",
+											"  })},\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"    var data = response.json();\r",
+											"\tpm.collectionVariables.set('userId', data.user.id);\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Delete User' is 204\", function(){\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"\r",
+											"var desc = \"No Content\"\r",
+											"tests[\"Status description from 'Delete User' is No Content\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Delete User' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Delete User' Response is empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.eql('');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/{{userId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obter dados do usuário logado",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Get User' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var desc = \"OK\"\r",
+											"tests[\"Status description from 'Get User' is OK\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Get User' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Get User' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Get User'\", () => {\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.email).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.language).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.timezone).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.access_level).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.access_level.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.access_level.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.access_level.label).to.be.a(\"string\");  \r",
+											"    pm.expect(jsonData.projects).to.be.an(\"array\");\r",
+											"    for(let i=0; i<jsonData.projects.length; i++)\r",
+											"    {\r",
+											"        pm.expect(jsonData.projects[i].id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.projects[i].name).to.be.a(\"string\");\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/me",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Exceção",
+					"item": [
+						{
+							"name": "Criar usuário que já existe",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+											"var lastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+											"\r",
+											"pm.collectionVariables.set('username', firstName+\".\"+lastName);\r",
+											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
+											"\r",
+											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
+											"\r",
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/users/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"     mode: 'raw',\r",
+											"     raw: JSON.stringify({\r",
+											"\t\t  \"username\": pm.collectionVariables.get(\"username\"),\r",
+											"\t\t  \"password\": pm.collectionVariables.get(\"userPassword\"),\r",
+											"\t\t  \"real_name\": pm.collectionVariables.get(\"userFullName\"),\r",
+											"\t\t  \"email\": pm.collectionVariables.get(\"username\")+\"@gmail.com\",\r",
+											"\t\t  \"access_level\": { \"name\": \"administrator\" },\r",
+											"\t\t  \"enabled\": true,\r",
+											"\t\t  \"protected\": false\r",
+											"  })},\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"    var data = response.json();\r",
+											"\tpm.collectionVariables.set('userId', data.user.id);\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Create User' is 400\", function(){\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Username '\"+pm.collectionVariables.get(\"username\")+\"' already used.\"\r",
+											"tests[\"Status description from 'Create User' is Username '\"+pm.collectionVariables.get(\"username\")+\"' already used.\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create User' Response is not successful\", function () {\r",
+											"    pm.response.to.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Create User' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"'Create User' message in response is 'Username '\"+pm.collectionVariables.get(\"username\")+\"' already used.'\", function () {\r",
+											"    pm.response.to.be.error;\r",
+											"    pm.expect(jsonData.message).to.be.eql(\"Username '\"+pm.collectionVariables.get(\"username\")+\"' already used.\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{userPassword}}\",\r\n  \"real_name\": \"{{userFullName}}\",\r\n  \"email\": \"{{username}}@gmail.com\",\r\n  \"access_level\": { \"name\": \"administrator\" },\r\n  \"enabled\": true,\r\n  \"protected\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar usuário - Email descartável",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+											"var lastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+											"\r",
+											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
+											"\r",
+											"pm.collectionVariables.set('username',removerAcentosECaracteresEspeciais(firstName+\".\"+lastName));\r",
+											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
+											"\r",
+											"function removerAcentosECaracteresEspeciais (str){\r",
+											"        str = str.replace('/[áàãâä]/ui', 'a');\r",
+											"        str = str.replace('/[éèêë]/ui', 'e');\r",
+											"        str = str.replace('/[íìîï]/ui', 'i');\r",
+											"        str = str.replace('/[óòõôö]/ui', 'o');\r",
+											"        str = str.replace('/[úùûü]/ui', 'u');\r",
+											"        str = str.replace('/[ç]/ui', 'c');\r",
+											"        str = str.replace('/[^a-z0-9]/i', '_');\r",
+											"        str = str.replace('/_+\\'/', '_'); \r",
+											"        str = str.replace('/[^a-z0-9]/gi',''); \r",
+											"        str = str.replace(/'/g, ''); \r",
+											"        return str;\r",
+											"}\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Create User' is 400\", function(){\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Email '\"+pm.collectionVariables.get('username')+\"@example.com' is disposable.\"\r",
+											"tests[\"Status description from 'Create User' is Email '\"+pm.collectionVariables.get('username')+\"@example.com' is disposable.\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create User' response is not successful\", function () {\r",
+											"    pm.response.to.be.error;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{userPassword}}\",\r\n  \"real_name\": \"{{userFullName}}\",\r\n  \"email\": \"{{username}}@example.com\",\r\n  \"access_level\": { \"name\": \"updater\" },\r\n  \"enabled\": true,\r\n  \"protected\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar usuário - Nome de usuário inválido",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+											"var lastName = pm.variables.replaceIn('O\\'Connell');\r",
+											"\r",
+											"pm.collectionVariables.set('username', firstName+\".\"+lastName);\r",
+											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
+											"\r",
+											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Create User' is 400\", function(){\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Invalid username\"\r",
+											"tests[\"Status description from 'Create User' is \"+desc] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create User' response is not successful\", function () {\r",
+											"    pm.response.to.be.error;\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"'Create User' message in response is Invalid username '\"+pm.collectionVariables.get('username')+\"'\", function () {\r",
+											"    pm.response.to.be.error;\r",
+											"    pm.expect(jsonData.message).to.be.eql(\"Invalid username '\"+pm.collectionVariables.get('username')+\"'\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{userPassword}}\",\r\n  \"real_name\": \"{{userFullName}}\",\r\n  \"email\": \"{{username}}@gmail.com\",\r\n  \"access_level\": { \"name\": \"administrator\" },\r\n  \"enabled\": true,\r\n  \"protected\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Issues",
+			"item": [
+				{
+					"name": "Sucesso",
+					"item": [
+						{
+							"name": "Criar Issue - Dados mínimos",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"\r",
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"     mode: 'raw',\r",
+											"     raw: JSON.stringify({\r",
+											"                \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"                \"status\": {\r",
+											"                    \"id\": 10,\r",
+											"                    \"name\": \"development\",\r",
+											"                    \"label\": \"development\"\r",
+											"                    },\r",
+											"                    \"description\": pm.collectionVariables.get(\"projectDescription\"),\r",
+											"                    \"enabled\": true,\r",
+											"                    \"file_path\": \"/tmp/\",\r",
+											"                    \"view_state\": {\r",
+											"                    \"id\": 10,\r",
+											"                    \"name\": \"public\",\r",
+											"                    \"label\": \"public\"\r",
+											"                    }\r",
+											"                })},\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"    var data = response.json();\r",
+											"\tpm.collectionVariables.set('projectName', data.project.name);\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											"\r",
+											"/************************************************************* */\r",
+											"pm.collectionVariables.set('issueSumary', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('issueDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var issueId = jsonData.issue.id; \r",
+											"\r",
+											"pm.collectionVariables.set('issueId', issueId);\r",
+											"\r",
+											"pm.test(\"Status code from 'Create Issue' is 201\", function(){\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Issue Created with id \"+issueId\r",
+											"tests[\"Status description from 'Create Issue' is Issue Created with id \"+issueId] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create Issue' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Create Issue' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"History length equals 1\", () => {\r",
+											"    pm.expect(jsonData.issue.history.length).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"tests[\"Issue doesn't have attachments\"] = pm.expect(!_.get(jsonData.issue, 'attachments'))\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Create Issue'\", () => {\r",
+											"    pm.expect(jsonData).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.summary).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.description).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.project).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.project.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.project.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.category).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.category.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.category.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reporter).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.reporter.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.reporter.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reporter.email).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.status).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.status.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.status.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.status.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.status.color).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.resolution).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.resolution.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.resolution.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.resolution.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.view_state).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.view_state.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.view_state.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.view_state.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.priority).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.priority.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.priority.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.priority.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.severity).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.severity.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.severity.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.severity.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reproducibility).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.reproducibility.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.reproducibility.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reproducibility.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.sticky).to.be.a(\"boolean\");\r",
+											"    pm.expect(jsonData.issue.created_at).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.updated_at).to.be.a(\"string\");\r",
+											"    pm.expect(!_.get(jsonData.issue, 'attachments'))\r",
+											"    pm.expect(jsonData.issue.history).to.be.an(\"array\");\r",
+											"    for(let i=0; i< jsonData.issue.history.length; i++)\r",
+											"    {\r",
+											"        pm.expect(jsonData.issue.history[i].created_at).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[i].user).to.be.an(\"object\");\r",
+											"        pm.expect(jsonData.issue.history[i].user.id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.issue.history[i].user.name).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[i].user.email).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[i].type).to.be.an(\"object\");\r",
+											"        pm.expect(jsonData.issue.history[i].type.id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.issue.history[i].type.name).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[i].message).to.be.a(\"string\");\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"summary\": \"{{issueSumary}}\",\r\n    \"description\": \"{{issueDescription}}\",\r\n    \"category\": {\r\n        \"name\": \"General\"\r\n        },\r\n    \"project\": {\r\n        \"name\": \"{{projectName}}\"\r\n        }\r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/issues/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"issues",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar Issue - Dados mínimos",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"/* Criar projeto */\r",
+											"\r",
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"\r",
+											"var req1 = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"     mode: 'raw',\r",
+											"     raw: JSON.stringify({\r",
+											"                \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"                \"status\": {\r",
+											"                    \"id\": 10,\r",
+											"                    \"name\": \"development\",\r",
+											"                    \"label\": \"development\"\r",
+											"                    },\r",
+											"                    \"description\": pm.collectionVariables.get(\"projectDescription\"),\r",
+											"                    \"enabled\": true,\r",
+											"                    \"file_path\": \"/tmp/\",\r",
+											"                    \"view_state\": {\r",
+											"                    \"id\": 10,\r",
+											"                    \"name\": \"public\",\r",
+											"                    \"label\": \"public\"\r",
+											"                    }\r",
+											"                })},\r",
+											"};\r",
+											"\r",
+											"/* Criar issue */\r",
+											"pm.collectionVariables.set('issueSumary', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('issueDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"\r",
+											"var req2 = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/issues/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"     mode: 'raw',\r",
+											"     raw: JSON.stringify({\r",
+											"                \"summary\": pm.collectionVariables.get(\"issueSumary\"),\r",
+											"                \"description\": pm.collectionVariables.get(\"issueDescription\"),\r",
+											"                \"category\": {\r",
+											"                    \"name\": \"General\"\r",
+											"                    },\r",
+											"                \"project\": {\r",
+											"                    \"name\": pm.collectionVariables.get(\"projectName\")\r",
+											"                    }\r",
+											"                })},\r",
+											"};\r",
+											"\r",
+											"\r",
+											"/* Criar usuário */\r",
+											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+											"var lastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+											"\r",
+											"pm.collectionVariables.set('username', firstName+\".\"+lastName);\r",
+											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
+											"\r",
+											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
+											"\r",
+											"var req3 = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/users/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"     mode: 'raw',\r",
+											"     raw: JSON.stringify({\r",
+											"\t\t    \"username\": pm.collectionVariables.get(\"username\"),\r",
+											"            \"password\": pm.collectionVariables.get(\"userPassword\"),\r",
+											"            \"real_name\": pm.collectionVariables.get(\"userFullName\"),\r",
+											"            \"email\": pm.collectionVariables.get(\"username\")+\"@gmail.com\",\r",
+											"            \"access_level\": { \"name\": \"administrator\" },\r",
+											"            \"enabled\": true,\r",
+											"            \"protected\": false\r",
+											"  })},\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req1, function (err, response) {\r",
+											"    var data1 = response.json();\r",
+											"\tpm.collectionVariables.set('projectName', data1.project.name);\r",
+											"\r",
+											"    pm.sendRequest(req2, function (err, response) {\r",
+											"        var data2 = response.json();\r",
+											"        pm.collectionVariables.set('issueId', data2.issue.id);   \r",
+											"\r",
+											"        pm.sendRequest(req3, function (err, response) {\r",
+											"            var data3 = response.json();\r",
+											"            pm.collectionVariables.set('issueHandler', data3.user.name);\r",
+											"            setTimeout(() => {}, 10000);\r",
+											"        });\r",
+											"        setTimeout(() => {}, 10000);\r",
+											"    });\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Update Issue' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Issue with id \"+pm.collectionVariables.get('issueId')+\" Updated\"\r",
+											"tests[\"Status description from 'Update Issue' is Issue with id \"+pm.collectionVariables.get('issueId')+\" Updated\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"History length equals 3\", () => {\r",
+											"    pm.expect(jsonData.issues[0].history.length).to.eql(3);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Update Issue'\", () => {\r",
+											"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+											"\tpm.expect(jsonData.issues).to.be.a(\"array\");\r",
+											"\tfor(let i=0; i< jsonData.issues.length; i++)\r",
+											"\t{\r",
+											"\t\tpm.expect(jsonData.issues[i].summary).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].description).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].project).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].project.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].project.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].category).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].category.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].category.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter.email).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.color).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].sticky).to.be.a(\"boolean\");\r",
+											"\t\tpm.expect(jsonData.issues[i].created_at).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].updated_at).to.be.a(\"string\");\r",
+											"        if(_.get(jsonData.issues[i], 'attachments'))\r",
+											"        {\r",
+											"            pm.expect(jsonData.issues[i].attachments).to.be.an(\"array\");\r",
+											"            for(let j=0; j<jsonData.issues[i].attachments.length; j++)\r",
+											"\t\t    {\r",
+											"                pm.expect(jsonData.issues[i].attachments[j].id).to.be.a(\"number\");\r",
+											"                pm.expect(jsonData.issues[i].attachments[j].reporter).to.be.an(\"object\");\r",
+											"                pm.expect(jsonData.issues[i].attachments[j].reporter.id).to.be.a(\"number\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].attachments[j].reporter.name).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].attachments[j].reporter.email).to.be.a(\"string\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].created_at).to.be.a(\"string\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].filename).to.be.a(\"string\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].size).to.be.a(\"number\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].content_type).to.be.a(\"string\");\r",
+											"            }\r",
+											"        }\r",
+											"\t\tpm.expect(jsonData.issues[i].history).to.be.an(\"array\");\r",
+											"\t\tfor(let j=0; j<jsonData.issues[i].history.length; j++)\r",
+											"\t\t{\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].created_at).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user).to.be.an(\"object\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user.id).to.be.a(\"number\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user.name).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user.email).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].type).to.be.an(\"object\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].type.id).to.be.a(\"number\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].type.name).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].message).to.be.a(\"string\");\r",
+											"\t\t}\r",
+											"\t}\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"handler\": {\r\n  \t\"name\": \"{{issueHandler}}\"\r\n  },\r\n  \"status\": {\r\n  \t\"name\": \"assigned\"\r\n  } \r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/issues/{{issueId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"issues",
+										"{{issueId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Issue - Com anexo",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"\r",
+											"const req = {\r",
+											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
+											"  \"method\": \"POST\",\r",
+											"  \"header\": {\r",
+											"      \"Authorization\": pm.environment.get(\"token\"),\r",
+											"      \"Content-Type\": \"application/json\"\r",
+											"  },\r",
+											"  \"body\": {\r",
+											"     mode: 'raw',\r",
+											"     raw: JSON.stringify({\r",
+											"                \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"                \"status\": {\r",
+											"                    \"id\": 10,\r",
+											"                    \"name\": \"development\",\r",
+											"                    \"label\": \"development\"\r",
+											"                    },\r",
+											"                    \"description\": pm.collectionVariables.get(\"projectDescription\"),\r",
+											"                    \"enabled\": true,\r",
+											"                    \"file_path\": \"/tmp/\",\r",
+											"                    \"view_state\": {\r",
+											"                    \"id\": 10,\r",
+											"                    \"name\": \"public\",\r",
+											"                    \"label\": \"public\"\r",
+											"                    }\r",
+											"                })},\r",
+											"};\r",
+											"\r",
+											"pm.sendRequest(req, function (err, response) {\r",
+											"    var data = response.json();\r",
+											"\tpm.collectionVariables.set('projectName', data.project.name);\r",
+											"    setTimeout(() => {}, 10000);\r",
+											"});\r",
+											"\r",
+											"pm.collectionVariables.set('issueSumary', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"\r",
+											"pm.collectionVariables.set('issueDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var issueId = jsonData.issue.id; \r",
+											"\r",
+											"pm.collectionVariables.set('issueId', issueId);\r",
+											"\r",
+											"pm.test(\"Status code from 'Create Issue' is 201\", function(){\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"var desc = \"Issue Created with id \"+issueId\r",
+											"tests[\"Status description from 'Create Issue' is Issue Created with id \"+issueId] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Create Issue' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Create Issue' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"History length equals 1\", () => {\r",
+											"    pm.expect(jsonData.issue.history.length).to.above(1);\r",
+											"});\r",
+											"\r",
+											"tests[\"Issue have attachments\"] = pm.expect(_.get(jsonData.issue, 'attachments'))\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Create Issue'\", () => {\r",
+											"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+											"\tpm.expect(jsonData.issue).to.be.a(\"object\");\r",
+											"    pm.expect(jsonData.issue.summary).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.description).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.project).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.project.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.project.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.category).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.category.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.category.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reporter).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.reporter.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.reporter.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reporter.email).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.status).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.status.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.status.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.status.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.status.color).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.resolution).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.resolution.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.resolution.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.resolution.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.view_state).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.view_state.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.view_state.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.view_state.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.priority).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.priority.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.priority.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.priority.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.severity).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.severity.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.severity.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.severity.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reproducibility).to.be.an(\"object\");\r",
+											"    pm.expect(jsonData.issue.reproducibility.id).to.be.a(\"number\");\r",
+											"    pm.expect(jsonData.issue.reproducibility.name).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.reproducibility.label).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.sticky).to.be.a(\"boolean\");\r",
+											"    pm.expect(jsonData.issue.created_at).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.updated_at).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.issue.attachments).to.be.an(\"array\");\r",
+											"    for(let j=0; j<jsonData.issue.attachments.length; j++)\r",
+											"    {\r",
+											"        pm.expect(jsonData.issue.attachments[j].id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].reporter).to.be.an(\"object\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].reporter.id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].reporter.name).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].reporter.email).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].created_at).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].filename).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].size).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.issue.attachments[j].content_type).to.be.a(\"string\");\r",
+											"    }\r",
+											"    pm.expect(jsonData.issue.history).to.be.an(\"array\");\r",
+											"    for(let j=0; j<jsonData.issue.history.length; j++)\r",
+											"    {\r",
+											"        pm.expect(jsonData.issue.history[j].created_at).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[j].user).to.be.an(\"object\");\r",
+											"        pm.expect(jsonData.issue.history[j].user.id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.issue.history[j].user.name).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[j].user.email).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[j].type).to.be.an(\"object\");\r",
+											"        pm.expect(jsonData.issue.history[j].type.id).to.be.a(\"number\");\r",
+											"        pm.expect(jsonData.issue.history[j].type.name).to.be.a(\"string\");\r",
+											"        pm.expect(jsonData.issue.history[j].message).to.be.a(\"string\");\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"summary\": \"{{issueSumary}}\",\r\n    \"description\": \"{{issueDescription}}\",\r\n    \"category\": {\r\n        \"name\": \"General\"\r\n        },\r\n    \"project\": {\r\n        \"name\": \"{{projectName}}\"\r\n        },\r\n    \"files\": [\r\n        {\r\n            \"name\": \"teste.txt\",\r\n            \"content\": \"QW1hbmjDoyB2b3UgbMOhIGhvamU=\"\r\n        },\r\n        {\r\n            \"name\": \"bugz.jpg\",\r\n            \"content\": \"{{img64}}\"\r\n        }\r\n    ]\r\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/issues/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"issues",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obter Issues",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code from 'Get Issues' is 200\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var desc = \"OK\"\r",
+											"tests[\"Status description from 'Get Issues' is OK\"] = responseCode.name.has(desc);\r",
+											"\r",
+											"pm.test(\"'Get Issues' Response is successful\", function () {\r",
+											"    pm.response.to.not.be.error;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"'Get Issues' Response is not empty\", () => {\r",
+											"    pm.expect(pm.response.text()).to.not.eql('');\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Data type of the response of 'Get Issues'\", () => {\r",
+											"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+											"\tpm.expect(jsonData.issues).to.be.a(\"array\");\r",
+											"\tfor(let i=0; i< jsonData.issues.length; i++)\r",
+											"\t{\r",
+											"\t\tpm.expect(jsonData.issues[i].summary).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].description).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].project).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].project.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].project.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].category).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].category.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].category.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reporter.email).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].status.color).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].resolution.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].view_state.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].priority.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].severity.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility).to.be.an(\"object\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility.id).to.be.a(\"number\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility.name).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].reproducibility.label).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].sticky).to.be.a(\"boolean\");\r",
+											"\t\tpm.expect(jsonData.issues[i].created_at).to.be.a(\"string\");\r",
+											"\t\tpm.expect(jsonData.issues[i].updated_at).to.be.a(\"string\");\r",
+											"        if(_.get(jsonData.issues[i], 'attachments'))\r",
+											"        {\r",
+											"            pm.expect(jsonData.issues[i].attachments).to.be.an(\"array\");\r",
+											"            for(let j=0; j<jsonData.issues[i].attachments.length; j++)\r",
+											"\t\t    {\r",
+											"                pm.expect(jsonData.issues[i].attachments[j].id).to.be.a(\"number\");\r",
+											"                pm.expect(jsonData.issues[i].attachments[j].reporter).to.be.an(\"object\");\r",
+											"                pm.expect(jsonData.issues[i].attachments[j].reporter.id).to.be.a(\"number\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].attachments[j].reporter.name).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].attachments[j].reporter.email).to.be.a(\"string\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].created_at).to.be.a(\"string\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].filename).to.be.a(\"string\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].size).to.be.a(\"number\");\r",
+											"            pm.expect(jsonData.issues[i].attachments[j].content_type).to.be.a(\"string\");\r",
+											"            }\r",
+											"        }\r",
+											"\t\tpm.expect(jsonData.issues[i].history).to.be.an(\"array\");\r",
+											"\t\tfor(let j=0; j<jsonData.issues[i].history.length; j++)\r",
+											"\t\t{\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].created_at).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user).to.be.an(\"object\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user.id).to.be.a(\"number\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user.name).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].user.email).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].type).to.be.an(\"object\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].type.id).to.be.a(\"number\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].type.name).to.be.a(\"string\");\r",
+											"\t\t\tpm.expect(jsonData.issues[i].history[j].message).to.be.a(\"string\");\r",
+											"\t\t}\r",
+											"\t}\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/issues/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"issues",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ultimoIdProjeto",
+			"value": ""
+		},
+		{
+			"key": "projectName",
+			"value": ""
+		},
+		{
+			"key": "projectDescription",
+			"value": ""
+		},
+		{
+			"key": "idProjeto",
+			"value": ""
+		},
+		{
+			"key": "uip",
+			"value": ""
+		},
+		{
+			"key": "issueSumary",
+			"value": ""
+		},
+		{
+			"key": "issueDescription",
+			"value": ""
+		},
+		{
+			"key": "issueId",
+			"value": ""
+		},
+		{
+			"key": "issueHandler",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "userFullName",
+			"value": ""
+		},
+		{
+			"key": "userPassword",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "projectId",
+			"value": ""
+		},
+		{
+			"key": "random",
+			"value": ""
+		}
+	]
+}

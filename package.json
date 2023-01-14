@@ -1,0 +1,26 @@
+{
+  "name": "desafio-automacao-api",
+  "version": "1.0.0",
+  "description": "API Rest: Mantis Bug Tracker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renycorreia/desafio-automacao-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renycorreia/desafio-automacao-api/issues"
+  },
+  "homepage": "https://github.com/renycorreia/desafio-automacao-api#readme",
+  "dependencies": {
+    "async": "^3.2.4",
+    "newman": "^5.3.2",
+    "newman-reporter-htmlextra": "^1.22.11",
+    "path": "^0.12.7"
+  }
+}

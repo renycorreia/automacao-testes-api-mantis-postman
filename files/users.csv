@@ -1,0 +1,3 @@
+username_csv,password_csv,real_name_csv,email_csv,access_level_name_csv,enabled_csv,protected_csv
+LiviaCorreiaOliveira,LiviaCorreiaOliveira123,Livia Correia Oliveira,LiviaCorreiaOliveira@gmail.com,updater,true,false
+MarcosGomesSouza,MarcosGomesSouza123,Marcos Gomes Souza,MarcosGomesSouza@gmail.com,administrator,true,false
