@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "06811ccf-b3a9-4ef9-a2f5-af4f1e05a994",
+		"name": "After All - Limpa Dados",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11215227"
+	},
+	"item": [
+		{
+			"name": "Excluir todos os projetos",
+			"item": [
+				{
+					"name": "Obter Projetos",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code from 'Get Projects' is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var desc = \"OK\"\r",
+									"tests[\"Status description from 'Get Projects' is OK\"] = responseCode.name.has(desc);\r",
+									"\r",
+									"pm.test(\"'Get Projects' Response is successful\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"'Get Projects' Response is not empty\", () => {\r",
+									"    pm.expect(pm.response.text()).to.not.eql('');\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"const schemaProjetos = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"projects\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"id\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"name\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"status\": {\r",
+									"              \"type\": \"object\",\r",
+									"              \"properties\": {\r",
+									"                \"id\": {\r",
+									"                  \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"name\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"label\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                }\r",
+									"              },\r",
+									"              \"required\": [\r",
+									"                \"id\",\r",
+									"                \"name\",\r",
+									"                \"label\"\r",
+									"              ]\r",
+									"            },\r",
+									"            \"description\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"enabled\": {\r",
+									"              \"type\": \"boolean\"\r",
+									"            },\r",
+									"            \"view_state\": {\r",
+									"              \"type\": \"object\",\r",
+									"              \"properties\": {\r",
+									"                \"id\": {\r",
+									"                  \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"name\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"label\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                }\r",
+									"              },\r",
+									"              \"required\": [\r",
+									"                \"id\",\r",
+									"                \"name\",\r",
+									"                \"label\"\r",
+									"              ]\r",
+									"            },\r",
+									"            \"access_level\": {\r",
+									"              \"type\": \"object\",\r",
+									"              \"properties\": {\r",
+									"                \"id\": {\r",
+									"                  \"type\": \"integer\"\r",
+									"                },\r",
+									"                \"name\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                },\r",
+									"                \"label\": {\r",
+									"                  \"type\": \"string\"\r",
+									"                }\r",
+									"              },\r",
+									"              \"required\": [\r",
+									"                \"id\",\r",
+									"                \"name\",\r",
+									"                \"label\"\r",
+									"              ]\r",
+									"            },\r",
+									"            \"custom_fields\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": {}\r",
+									"            },\r",
+									"            \"versions\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": {}\r",
+									"            },\r",
+									"            \"categories\": {\r",
+									"              \"type\": \"array\",\r",
+									"              \"items\": [\r",
+									"                {\r",
+									"                  \"type\": \"object\",\r",
+									"                  \"properties\": {\r",
+									"                    \"id\": {\r",
+									"                      \"type\": \"integer\"\r",
+									"                    },\r",
+									"                    \"name\": {\r",
+									"                      \"type\": \"string\"\r",
+									"                    },\r",
+									"                    \"project\": {\r",
+									"                      \"type\": \"object\",\r",
+									"                      \"properties\": {\r",
+									"                        \"id\": {\r",
+									"                          \"type\": \"integer\"\r",
+									"                        },\r",
+									"                        \"name\": {\r",
+									"                          \"type\": \"null\"\r",
+									"                        }\r",
+									"                      },\r",
+									"                      \"required\": [\r",
+									"                        \"id\",\r",
+									"                        \"name\"\r",
+									"                      ]\r",
+									"                    }\r",
+									"                  },\r",
+									"                  \"required\": [\r",
+									"                    \"id\",\r",
+									"                    \"name\",\r",
+									"                    \"project\"\r",
+									"                  ]\r",
+									"                }\r",
+									"              ]\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"id\",\r",
+									"            \"name\",\r",
+									"            \"status\",\r",
+									"            \"description\",\r",
+									"            \"enabled\",\r",
+									"            \"view_state\",\r",
+									"            \"access_level\",\r",
+									"            \"custom_fields\",\r",
+									"            \"versions\",\r",
+									"            \"categories\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"projects\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Projects schema is valid', function() {\r",
+									"  pm.response.to.have.jsonSchema(schemaProjetos);\r",
+									"});\r",
+									"\r",
+									"var arrayProjects = [];\r",
+									"\r",
+									"for(let i = 0; i < jsonData.projects.length; i++)\r",
+									"{\r",
+									"    arrayProjects.push(jsonData.projects[i].id)\r",
+									"}\r",
+									"\r",
+									"pm.collectionVariables.set('projects', arrayProjects);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/projects/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir todos os projetos",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var arrayProjects = pm.collectionVariables.get('projects');\r",
+									"console.log(arrayProjects)\r",
+									"pm.collectionVariables.set('projectId', arrayProjects.shift());\r",
+									"pm.collectionVariables.set('projects', arrayProjects);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code from 'Delete Project' is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var projectId = pm.collectionVariables.get('projectId');\r",
+									"var desc = \"Project with id \"+projectId+\" deleted.\"\r",
+									"tests[\"Status description from 'Delete Project' is Project with id \"+projectId+\" deleted.\"] = responseCode.name.has(desc);\r",
+									"\r",
+									"pm.test(\"'Delete Project' Response is successful\", function () {\r",
+									"    pm.response.to.not.be.error;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"'Delete Project' Response is empty\", () => {\r",
+									"    pm.expect(pm.response.text()).to.eql('');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var arrayProjects = pm.collectionVariables.get('projects');\r",
+									"var aux = arrayProjects.length;\r",
+									"if(aux > 0)\r",
+									"{\r",
+									"    chamaRequest();\r",
+									"}\r",
+									"\r",
+									"function chamaRequest()\r",
+									"{\r",
+									"    postman.setNextRequest(\"Excluir todos os projetos\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/projects/{{projectId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"projects",
+								"{{projectId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	}
+}

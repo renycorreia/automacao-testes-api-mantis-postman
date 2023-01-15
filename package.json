@@ -4,7 +4,7 @@
   "description": "API Rest: Mantis Bug Tracker",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js && newman run postman/limpa-dados.postman_collection.json -e postman/desafio-automacao-api-dev.postman_environment.json"
   },
   "repository": {
     "type": "git",

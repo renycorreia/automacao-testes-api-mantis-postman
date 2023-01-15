@@ -386,33 +386,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"const req = {\r",
-											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
-											"  \"method\": \"GET\",\r",
-											"  \"header\": {\r",
-											"      \"Authorization\": pm.environment.get(\"token\"),\r",
-											"      \"Content-Type\": \"application/json\"\r",
-											"  },\r",
-											"};\r",
-											"\r",
-											"pm.sendRequest(req, function (err, response) {\r",
-											"    var data = response.json();\r",
-											"\r",
-											"\tfunction getMaxId(arr, prop) {\r",
-											"        var max;\r",
-											"        for (var i=0 ; i<arr.length ; i++) {\r",
-											"            if (max == null || parseInt(arr[i][prop]) > parseInt(max[prop]))\r",
-											"                max = arr[i];\r",
-											"        }\r",
-											"        return max;\r",
-											"    }\r",
-											"\r",
-											"    pm.collectionVariables.set('ultimoIdProjeto', getMaxId(data.projects, \"id\").id);\r",
-											"    setTimeout(() => {}, 10000);\r",
-											"});\r",
-											"\r",
-											"/*******************************************************************************/\r",
-											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomNoun}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));"
 										],
 										"type": "text/javascript"
@@ -589,9 +563,6 @@
 											"{\r",
 											"    pm.expect(jsonData.project.name).to.eql(pm.collectionVariables.get(\"projectName\"));\r",
 											"});\r",
-											"\r",
-											"pm.collectionVariables.set('uip', parseInt(pm.collectionVariables.get('ultimoIdProjeto') + 1));\r",
-											"\r",
 											""
 										],
 										"type": "text/javascript"
@@ -631,7 +602,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomNoun}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
 											"\r",
 											"const req = {\r",
@@ -665,7 +636,7 @@
 											"pm.sendRequest(req, function (err, response) {\r",
 											"    var data = response.json();\r",
 											"\tpm.collectionVariables.set('projectId', data.project.id);\r",
-											"    setTimeout(() => {}, 10000);\r",
+											"    setTimeout(() => {}, 5000);\r",
 											"});\r",
 											""
 										],
@@ -708,7 +679,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"enabled\": false\r\n}"
+									"raw": "{\r\n   \"name\": \"Projeto {{projectName}} {{$randomInt}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/projects/{{projectId}}",
@@ -730,7 +701,7 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
+											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomNoun}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
 											"\r",
 											"const req = {\r",
@@ -764,7 +735,7 @@
 											"pm.sendRequest(req, function (err, response) {\r",
 											"    var data = response.json();\r",
 											"\tpm.collectionVariables.set('projectId', data.project.id);\r",
-											"    setTimeout(() => {}, 10000);\r",
+											"    setTimeout(() => {}, 5000);\r",
 											"});\r",
 											""
 										],
@@ -1152,7 +1123,7 @@
 											"pm.sendRequest(req, function (err, response) {\r",
 											"    var data = response.json();\r",
 											"\tpm.collectionVariables.set('userId', data.user.id);\r",
-											"    setTimeout(() => {}, 10000);\r",
+											"    setTimeout(() => {}, 5000);\r",
 											"});\r",
 											""
 										],
@@ -1325,7 +1296,7 @@
 											"pm.sendRequest(req, function (err, response) {\r",
 											"    var data = response.json();\r",
 											"\tpm.collectionVariables.set('userId', data.user.id);\r",
-											"    setTimeout(() => {}, 10000);\r",
+											"    setTimeout(() => {}, 5000);\r",
 											"});\r",
 											""
 										],
@@ -1588,7 +1559,7 @@
 											"pm.sendRequest(req, function (err, response) {\r",
 											"    var data = response.json();\r",
 											"\tpm.collectionVariables.set('projectName', data.project.name);\r",
-											"    setTimeout(() => {}, 10000);\r",
+											"    setTimeout(() => {}, 5000);\r",
 											"});\r",
 											"\r",
 											"/************************************************************* */\r",
@@ -1823,11 +1794,11 @@
 											"        pm.sendRequest(req3, function (err, response) {\r",
 											"            var data3 = response.json();\r",
 											"            pm.collectionVariables.set('issueHandler', data3.user.name);\r",
-											"            setTimeout(() => {}, 10000);\r",
+											"            setTimeout(() => {}, 5000);\r",
 											"        });\r",
-											"        setTimeout(() => {}, 10000);\r",
+											"        setTimeout(() => {}, 5000);\r",
 											"    });\r",
-											"    setTimeout(() => {}, 10000);\r",
+											"    setTimeout(() => {}, 5000);\r",
 											"});\r",
 											"\r",
 											"\r",
@@ -2001,7 +1972,7 @@
 											"pm.sendRequest(req, function (err, response) {\r",
 											"    var data = response.json();\r",
 											"\tpm.collectionVariables.set('projectName', data.project.name);\r",
-											"    setTimeout(() => {}, 10000);\r",
+											"    setTimeout(() => {}, 5000);\r",
 											"});\r",
 											"\r",
 											"pm.collectionVariables.set('issueSumary', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
@@ -2385,6 +2356,10 @@
 		},
 		{
 			"key": "random",
+			"value": ""
+		},
+		{
+			"key": "projects",
 			"value": ""
 		}
 	]
