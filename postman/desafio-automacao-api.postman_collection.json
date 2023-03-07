@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7ef18f38-0e7c-460f-8840-544c0a412f6f",
+		"_postman_id": "f100fd0c-fe42-489b-9242-fe7c06d449d1",
 		"name": "Mantis",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "11215227"
@@ -386,6 +386,8 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
+											"pm.collectionVariables.set('random', Math.floor(Math.random() * 100000));\r",
+											"\r",
 											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomNoun}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));"
 										],
@@ -561,7 +563,7 @@
 											"\r",
 											"pm.test('Project Name confirmation', function()\r",
 											"{\r",
-											"    pm.expect(jsonData.project.name).to.eql(pm.collectionVariables.get(\"projectName\"));\r",
+											"    pm.expect(jsonData.project.name).to.eql(pm.collectionVariables.get(\"projectName\")+pm.collectionVariables.get(\"random\"));\r",
 											"});\r",
 											""
 										],
@@ -580,7 +582,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"name\": \"{{projectName}}\",\r\n   \"status\": {\r\n      \"id\": 10,\r\n      \"name\": \"development\",\r\n      \"label\": \"development\"\r\n    },\r\n    \"description\": \"{{projectDescription}}\",\r\n    \"enabled\": true,\r\n    \"file_path\": \"/tmp/\",\r\n    \"view_state\": {\r\n      \"id\": 10,\r\n      \"name\": \"public\",\r\n      \"label\": \"public\"\r\n    }\r\n}"
+									"raw": "{\r\n   \"name\": \"{{projectName}}{{random}}\",\r\n   \"status\": {\r\n      \"id\": 10,\r\n      \"name\": \"development\",\r\n      \"label\": \"development\"\r\n    },\r\n    \"description\": \"{{projectDescription}}\",\r\n    \"enabled\": true,\r\n    \"file_path\": \"/tmp/\",\r\n    \"view_state\": {\r\n      \"id\": 10,\r\n      \"name\": \"public\",\r\n      \"label\": \"public\"\r\n    }\r\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/projects/",
@@ -604,6 +606,7 @@
 										"exec": [
 											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomNoun}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"pm.collectionVariables.set('random', Math.floor(Math.random() * 100000));\r",
 											"\r",
 											"const req = {\r",
 											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
@@ -615,7 +618,7 @@
 											"  \"body\": {\r",
 											"        mode: 'raw',\r",
 											"        raw: JSON.stringify({\r",
-											"        \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"        \"name\": pm.collectionVariables.get(\"projectName\")+pm.collectionVariables.get(\"random\"),\r",
 											"        \"status\": {\r",
 											"            \"id\": 10,\r",
 											"            \"name\": \"development\",\r",
@@ -703,6 +706,7 @@
 										"exec": [
 											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomNoun}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"pm.collectionVariables.set('random', Math.floor(Math.random() * 100000));\r",
 											"\r",
 											"const req = {\r",
 											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
@@ -714,7 +718,7 @@
 											"  \"body\": {\r",
 											"        mode: 'raw',\r",
 											"        raw: JSON.stringify({\r",
-											"        \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"        \"name\": pm.collectionVariables.get(\"projectName\")+pm.collectionVariables.get(\"random\"),\r",
 											"        \"status\": {\r",
 											"            \"id\": 10,\r",
 											"            \"name\": \"development\",\r",
@@ -976,39 +980,6 @@
 							"name": "Criar usuário - Dados Mínimos",
 							"event": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
-											"var lastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
-											"\r",
-											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
-											"\r",
-											"pm.collectionVariables.set('username',removerAcentosECaracteresEspeciais(firstName+\".\"+lastName));\r",
-											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
-											"\r",
-											"\r",
-											"function removerAcentosECaracteresEspeciais (str){\r",
-											"        str = str.replace('/[áàãâä]/ui', 'a');\r",
-											"        str = str.replace('/[éèêë]/ui', 'e');\r",
-											"        str = str.replace('/[íìîï]/ui', 'i');\r",
-											"        str = str.replace('/[óòõôö]/ui', 'o');\r",
-											"        str = str.replace('/[úùûü]/ui', 'u');\r",
-											"        str = str.replace('/[ç]/ui', 'c');\r",
-											"        str = str.replace('/[^a-z0-9]/i', '_');\r",
-											"        str = str.replace('/_+\\'/', '_'); \r",
-											"        str = str.replace('/[^a-z0-9]/gi',''); \r",
-											"        str = str.replace(/'/g, ''); \r",
-											"        return str;\r",
-											"}\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
 									"listen": "test",
 									"script": {
 										"exec": [
@@ -1053,6 +1024,57 @@
 											"        pm.expect(jsonData.user.projects[i].name).to.be.a(\"string\");\r",
 											"    }\r",
 											"});\r",
+											"\r",
+											"//o número de usuário no ambiente trial é limitado, então todos os usuários do teste serão excluídos após o uso\r",
+											"const currentEnv = pm.environment.name;\r",
+											"if(currentEnv === \"hml\")\r",
+											"{\r",
+											"    const req = {\r",
+											"    \"url\": pm.environment.get(\"baseUrl\")+\"/users/\"+userId,\r",
+											"    \"method\": \"DELETE\",\r",
+											"    \"header\": {\r",
+											"        \"Authorization\": pm.environment.get(\"token\"),\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"    };\r",
+											"\r",
+											"    pm.sendRequest(req, function (err, response) {\r",
+											"\r",
+											"    });\r",
+											"\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var firstName = pm.variables.replaceIn('{{$randomFirstName}}');\r",
+											"var lastName = pm.variables.replaceIn('{{$randomLastName}}');\r",
+											"\r",
+											"pm.collectionVariables.set('userFullName', firstName+\" \"+lastName);\r",
+											"\r",
+											"pm.collectionVariables.set('username',removerAcentosECaracteresEspeciais(firstName+\".\"+lastName));\r",
+											"pm.collectionVariables.set('userPassword', pm.collectionVariables.replaceIn('{{$randomPassword}}'));\r",
+											"\r",
+											"\r",
+											"function removerAcentosECaracteresEspeciais (str){\r",
+											"        str = str.replace('/[áàãâä]/ui', 'a');\r",
+											"        str = str.replace('/[éèêë]/ui', 'e');\r",
+											"        str = str.replace('/[íìîï]/ui', 'i');\r",
+											"        str = str.replace('/[óòõôö]/ui', 'o');\r",
+											"        str = str.replace('/[úùûü]/ui', 'u');\r",
+											"        str = str.replace('/[ç]/ui', 'c');\r",
+											"        str = str.replace('/[^a-z0-9]/i', '_');\r",
+											"        str = str.replace('/_+\\'/', '_'); \r",
+											"        str = str.replace('/[^a-z0-9]/gi',''); \r",
+											"        str = str.replace(/'/g, ''); \r",
+											"        return str;\r",
+											"}\r",
+											"\r",
 											"\r",
 											""
 										],
@@ -1528,6 +1550,7 @@
 										"exec": [
 											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"pm.collectionVariables.set('random', Math.floor(Math.random() * 100000));\r",
 											"\r",
 											"const req = {\r",
 											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
@@ -1539,7 +1562,7 @@
 											"  \"body\": {\r",
 											"     mode: 'raw',\r",
 											"     raw: JSON.stringify({\r",
-											"                \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"                \"name\": pm.collectionVariables.get(\"projectName\")+pm.collectionVariables.get(\"random\"),\r",
 											"                \"status\": {\r",
 											"                    \"id\": 10,\r",
 											"                    \"name\": \"development\",\r",
@@ -1700,6 +1723,7 @@
 											"\r",
 											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"pm.collectionVariables.set('random', Math.floor(Math.random() * 100000));\r",
 											"\r",
 											"var req1 = {\r",
 											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
@@ -1711,7 +1735,7 @@
 											"  \"body\": {\r",
 											"     mode: 'raw',\r",
 											"     raw: JSON.stringify({\r",
-											"                \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"                \"name\": pm.collectionVariables.get(\"projectName\")+pm.collectionVariables.get(\"random\"),\r",
 											"                \"status\": {\r",
 											"                    \"id\": 10,\r",
 											"                    \"name\": \"development\",\r",
@@ -1748,7 +1772,7 @@
 											"                    \"name\": \"General\"\r",
 											"                    },\r",
 											"                \"project\": {\r",
-											"                    \"name\": pm.collectionVariables.get(\"projectName\")\r",
+											"                    \"name\": pm.collectionVariables.get(\"projectName\")+pm.collectionVariables.get(\"random\")\r",
 											"                    }\r",
 											"                })},\r",
 											"};\r",
@@ -1794,6 +1818,7 @@
 											"        pm.sendRequest(req3, function (err, response) {\r",
 											"            var data3 = response.json();\r",
 											"            pm.collectionVariables.set('issueHandler', data3.user.name);\r",
+											"            pm.collectionVariables.set('userId', data3.user.id);\r",
 											"            setTimeout(() => {}, 5000);\r",
 											"        });\r",
 											"        setTimeout(() => {}, 5000);\r",
@@ -1900,7 +1925,29 @@
 											"\t\t\tpm.expect(jsonData.issues[i].history[j].message).to.be.a(\"string\");\r",
 											"\t\t}\r",
 											"\t}\r",
-											"});"
+											"});\r",
+											"\r",
+											"\r",
+											"//o número de usuário no ambiente trial é limitado, então todos os usuários do teste serão excluídos após o uso\r",
+											"var userId = pm.collectionVariables.get('userId'); \r",
+											"const currentEnv = pm.environment.name;\r",
+											"if(currentEnv === \"hml\")\r",
+											"{\r",
+											"    const req = {\r",
+											"    \"url\": pm.environment.get(\"baseUrl\")+\"/users/\"+userId,\r",
+											"    \"method\": \"DELETE\",\r",
+											"    \"header\": {\r",
+											"        \"Authorization\": pm.environment.get(\"token\"),\r",
+											"        \"Content-Type\": \"application/json\"\r",
+											"    },\r",
+											"    };\r",
+											"\r",
+											"    pm.sendRequest(req, function (err, response) {\r",
+											"\r",
+											"    });\r",
+											"\r",
+											"}\r",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -1941,6 +1988,7 @@
 										"exec": [
 											"pm.collectionVariables.set('projectName', pm.collectionVariables.replaceIn('{{$randomLoremSentence}}'));\r",
 											"pm.collectionVariables.set('projectDescription', pm.collectionVariables.replaceIn('{{$randomLoremParagraph}}'));\r",
+											"pm.collectionVariables.set('random', Math.floor(Math.random() * 100000));\r",
 											"\r",
 											"const req = {\r",
 											"  \"url\": pm.environment.get(\"baseUrl\")+\"/projects/\",\r",
@@ -1952,7 +2000,7 @@
 											"  \"body\": {\r",
 											"     mode: 'raw',\r",
 											"     raw: JSON.stringify({\r",
-											"                \"name\": pm.collectionVariables.get(\"projectName\"),\r",
+											"                \"name\": pm.collectionVariables.get(\"projectName\")+pm.collectionVariables.get(\"random\"),\r",
 											"                \"status\": {\r",
 											"                    \"id\": 10,\r",
 											"                    \"name\": \"development\",\r",

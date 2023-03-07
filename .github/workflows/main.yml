@@ -1,0 +1,36 @@
+name: ci 🧪
+
+on: push
+
+jobs:
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git repositor
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "desafio-automacao-api-hml.postman_environment.json"
+          json: ${{ secrets.HML_ENV }}
+          dir: 'postman/'
+      - name: Run tests
+        continue-on-error: true
+        run: npm start
+      - name: Step 4 Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+            name: report
+            path: ./results/index.html
+      - name: Publish Report
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./results/

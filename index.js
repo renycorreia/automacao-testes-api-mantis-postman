@@ -6,12 +6,12 @@ const PARALLEL_RUN_COUNT = 2
 
 const parametersForTestRun = {
     collection: path.join(__dirname, 'postman/desafio-automacao-api.postman_collection.json'),
-    environment: path.join(__dirname, 'postman/desafio-automacao-api-dev.postman_environment.json'),
+    environment: path.join(__dirname, 'postman/desafio-automacao-api-hml.postman_environment.json'),
     iterationData: path.join(__dirname, 'files/users.csv'),
     reporters: ['cli', 'htmlextra'],
     reporter:{
         htmlextra: {
-            export: './report.html'
+            export: './results/index.html'
         }
     }
 };

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "06811ccf-b3a9-4ef9-a2f5-af4f1e05a994",
+		"_postman_id": "5a2c686e-e596-45b2-9d68-d30f1b2f23c0",
 		"name": "After All - Limpa Dados",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "11215227"
@@ -239,33 +239,36 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code from 'Delete Project' is 200\", function(){\r",
+									"if(pm.response.code === 200)\r",
+									"{\r",
+									"    pm.test(\"Status code from 'Delete Project' is 200\", function(){\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r",
+									"    });\r",
 									"\r",
-									"var projectId = pm.collectionVariables.get('projectId');\r",
-									"var desc = \"Project with id \"+projectId+\" deleted.\"\r",
-									"tests[\"Status description from 'Delete Project' is Project with id \"+projectId+\" deleted.\"] = responseCode.name.has(desc);\r",
+									"    var projectId = pm.collectionVariables.get('projectId');\r",
+									"    var desc = \"Project with id \"+projectId+\" deleted.\"\r",
+									"    tests[\"Status description from 'Delete Project' is Project with id \"+projectId+\" deleted.\"] = responseCode.name.has(desc);\r",
 									"\r",
-									"pm.test(\"'Delete Project' Response is successful\", function () {\r",
-									"    pm.response.to.not.be.error;\r",
-									"});\r",
+									"    pm.test(\"'Delete Project' Response is successful\", function () {\r",
+									"        pm.response.to.not.be.error;\r",
+									"    });\r",
 									"\r",
-									"pm.test(\"'Delete Project' Response is empty\", () => {\r",
-									"    pm.expect(pm.response.text()).to.eql('');\r",
-									"});\r",
+									"    pm.test(\"'Delete Project' Response is empty\", () => {\r",
+									"        pm.expect(pm.response.text()).to.eql('');\r",
+									"    });\r",
 									"\r",
 									"\r",
-									"var arrayProjects = pm.collectionVariables.get('projects');\r",
-									"var aux = arrayProjects.length;\r",
-									"if(aux > 0)\r",
-									"{\r",
-									"    chamaRequest();\r",
-									"}\r",
+									"    var arrayProjects = pm.collectionVariables.get('projects');\r",
+									"    var aux = arrayProjects.length;\r",
+									"    if(aux > 0)\r",
+									"    {\r",
+									"        chamaRequest();\r",
+									"    }\r",
 									"\r",
-									"function chamaRequest()\r",
-									"{\r",
-									"    postman.setNextRequest(\"Excluir todos os projetos\");\r",
+									"    function chamaRequest()\r",
+									"    {\r",
+									"        postman.setNextRequest(\"Excluir todos os projetos\");\r",
+									"    }\r",
 									"}"
 								],
 								"type": "text/javascript"
@@ -315,5 +318,15 @@
 				"type": "string"
 			}
 		]
-	}
+	},
+	"variable": [
+		{
+			"key": "projects",
+			"value": ""
+		},
+		{
+			"key": "projectId",
+			"value": ""
+		}
+	]
 }
